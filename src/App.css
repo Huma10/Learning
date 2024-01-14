@@ -1,7 +1,15 @@
 .App {
   text-align: center;
 }
+html, body {
+  height: 100%;
+  margin: 0;
+}
 
+body {
+  display: flex;
+  flex-direction: column;
+}
 * {
   font-family: 'Aclonica', sans-serif;
 }
@@ -43,6 +51,7 @@
 
 .background-radial-gradient {
   background-color: #233142;
+  min-height: 100vh;
   /* background-image: radial-gradient(650px circle at 0% 0%,
       hsl(218, 41%, 35%) 15%,
       hsl(218, 41%, 30%) 35%,
@@ -92,3 +101,12 @@
 .toast-message {
   color: red;
 }
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* This takes the full height of the viewport */
+  text-align: center; /* This ensures the text is centered if it wraps */
+}
+
+

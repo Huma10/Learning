@@ -1,14 +1,26 @@
 import { LoginContext } from '../ContextProvider/context';
 
 import { useContext } from 'react';
+import Sidebar from './Sidebar';
 
-const Dashboard = ({logindata1}) => { 
-  console.log('child : ',logindata1);
+const Dashboard = ({ logindata1 }) => {
+  console.log('child : ', logindata1);
   const logindata = useContext(LoginContext);
-    return (
-    <div>
-      <h1>Dashboard {logindata1.email} </h1>
-    </div>
+  return (
+    
+    <div className="row">
+            {/* Sidebar */}
+            <Sidebar />
+
+            {/* Main Content */}
+            <div className="col">
+                <div className="centered-container">
+                    <h1>Welcome {logindata1.email}</h1>
+                    {/* Other content goes here */}
+                </div>
+            </div>
+        </div>
+   
   );
 }
 

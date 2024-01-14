@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {  NavLink, useNavigate } from 'react-router-dom';
 import authService from '../service/auth.service';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { LoginContext } from '../ContextProvider/context';
 
 const LogoutUser = () => {
-
+    const { setLoginData } = useContext(LoginContext)
     const history = useNavigate();
     const logoutUser = async (e) => {
         e.preventDefault();
@@ -16,6 +17,7 @@ const LogoutUser = () => {
 
                 localStorage.clear();
                 localStorage.removeItem('user');
+                setLoginData(null)
                 history('/')
 
             }
