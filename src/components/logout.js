@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
-import {  NavLink, useNavigate } from 'react-router-dom';
+import {  Link, NavLink, useNavigate } from 'react-router-dom';
 import authService from '../service/auth.service';
-import LogoutIcon from '@mui/icons-material/Logout';
 import { LoginContext } from '../ContextProvider/context';
-
+import { BsBoxArrowRight } 
+  from 'react-icons/bs'
 const LogoutUser = () => {
     const { setLoginData } = useContext(LoginContext)
     const history = useNavigate();
@@ -27,10 +27,11 @@ const LogoutUser = () => {
     }
 
     return (
-        <div>
-            <NavLink to='/' onClick={logoutUser}><LogoutIcon>Logout</LogoutIcon></NavLink>
-
-        </div>
+        <>
+            <Link to='/' onClick={logoutUser} className='text-dark'><BsBoxArrowRight className='icon' /></Link>
+            {/* <NavLink to='/' onClick={logoutUser}><LogoutIcon>Logout</LogoutIcon></NavLink> */}
+            </>
+        
     )
 }
 

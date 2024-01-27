@@ -9,8 +9,7 @@ const Dashboard = ({ logindata1 }) => {
   return (
     
     <div className="row">
-            {/* Sidebar */}
-            <Sidebar />
+  
 
             {/* Main Content */}
             <div className="col">
@@ -20,6 +19,7 @@ const Dashboard = ({ logindata1 }) => {
                 </div>
             </div>
         </div>
+    
    
   );
 }

@@ -3,55 +3,70 @@ import authHeader from "./auth-header";
 
 const URl = 'http://localhost:8080/api';
 
-const Login = async ({email,password}) => { 
+const Login = async ({ email, password }) => {
     const data = {
         email,
         password
-    } 
+    }
     console.log(data);
 
     return axios.post(`${URl}/login`, data)
-    .then(response => {
-        if (response.data.accessToken) {
-            localStorage.setItem("user", JSON.stringify(response.data));
-        }
-        return response.data;
-    })
-    .catch(error => {   
-        return error;
-    });    
+        .then(response => {
+            if (response.data.accessToken) {
+                localStorage.setItem("user", JSON.stringify(response.data));
+            }
+            return response.data;
+        })
+        .catch(error => {
+            return error;
+        });
 }
 
 
 const logout = () => {
-    return axios.post(`${URl}/logout`, {} , {headers : authHeader().authorization})
-    .then((response) => {
-        return response;
-    })
-    .catch((err)=>{
-        return err;
-    })
+    return axios.post(`${URl}/logout`, {}, { headers: authHeader().authorization })
+        .then((response) => {
+            return response;
+        })
+        .catch((err) => {
+            return err;
+        })
 }
 
-const getCurrentUser = () => {   
+const getCurrentUser = () => {
     return JSON.parse(localStorage.getItem('user'));
-}   
+}
 
 const register = (data) => {
-   return axios.post(`${URl}/register`, data)
-    .then(response => {
-        return response.data;
+    return axios.post(`${URl}/register`, data)
+        .then(response => {
+            return response.data;
+        })
+        .catch(error => {
+            return error;
+        })
+}
+
+const findUserById = (id) => {
+    return axios.get(`${URl}/user/${id}`, {
+        headers: {
+            Authorization: authHeader().Authorization
+        }
     })
-    .catch(error => {
-        return error;
-    })
+        .then((res) => {
+            return res
+        })
+        .catch((error) => {
+            return error
+        })
 }
 
 const authService = {
     Login,
     logout,
     getCurrentUser,
-    register
+    register,
+    findUserById
 
 }
 

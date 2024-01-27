@@ -1,36 +1,38 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import 'E:/IVS/Learning/src/sidebar.css'
+import { BsCart3, BsCameraReelsFill, BsBoxFill, BsBoombox, BsBroadcast  } from 'react-icons/bs'
 
-const Sidebar =  () => {
+const Sidebar = ({openSidebarToggle, OpenSidebar}) => {
 
     return (
-        <>
-            <div className="col-auto min-vh-100 bg-dark">
-            <ul>
-                <li>
-                    <NavLink className="nav-link px-2" to="/home">
-                        <i className="bi-house"/><span className="ms-1 d-none d-dm-inline">Home</span>
-                    </NavLink>
+        // <div className="grid-container">
+        <aside id='sidebar' className={openSidebarToggle ? "sidebar-responsive": ""}>
+            <div className="sidebar-title">
+                <div className="sidebar-brand text-white">
+                    <BsCameraReelsFill className="icon-header" /> IVS
+                </div>
+                <span className="icon close-icon" onClick={OpenSidebar}>X</span>
+            </div>
+            <ul className="sidebar-list">
+                <li className="sidebar-list-item">
+                    <Link to='/dash'>
+                        <BsBoxFill className="icon" />Dashboard
+                    </Link>
                 </li>
-                <li>
-                    <NavLink className="nav-link px-2" to="/speedometer">
-                        <i className="bi-speedometer"/><span className="ms-1 d-none d-dm-inline">Speedometer</span>
-                    </NavLink>
+                <li className="sidebar-list-item">
+                    <Link to='/channel'>
+                        <BsBoombox className="icon" />Channels
+                    </Link>
                 </li>
-                <li>
-                    <NavLink className="nav-link px-2" to="/other-link">
-                        <i className="bi-home"/><span className="ms-1 d-none d-dm-inline">Other Link</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink className="nav-link px-2" to="/another-link">
-                        <i className="bi-house"/><span className="ms-1 d-none d-dm-inline">Another Link</span>
-                    </NavLink>
+                <li className="sidebar-list-item">
+                    <Link to='/dash'>
+                        <BsBroadcast  className="icon" />Live stream
+                    </Link>
                 </li>
             </ul>
-        </div>
-        </>
+        </aside>
+        // </div>
     )
 }
 

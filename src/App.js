@@ -9,54 +9,56 @@ import { LoginContext } from "./ContextProvider/context";
 import './App.css';
 import Channel from "./components/channels/channel";
 import Sidebar from "./components/Sidebar";
+import MyProfile from "./components/MyProfile";
 function App() {
   const [data, setData] = useState(false);
+   const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
   const { setLoginData, logindata } = useContext(LoginContext);
   const RequireAuth = ({ children }) => {
-    // Use logindata from context or localStorage to verify authentication
     const isUserLoggedIn = logindata || localStorage.getItem("user");
     return isUserLoggedIn ? children : <Navigate to="/" />;
   };
-  // Check local storage for user data
+
+ 
+
+  const OpenSidebar = () => {
+    setOpenSidebarToggle(!openSidebarToggle)
+  }
+
   useEffect(() => {
     const user = localStorage.getItem("user");
     if (user) {
       setLoginData(JSON.parse(user));
     }
-    setData(true)
+    setData(true);
   }, [setLoginData]);
+
   return (
     <>
       {data ? (
         <>
-
-          
-          {/* Show Header only if user is logged in */}
-          {logindata && <Header />}
-          
-          {logindata && <Sidebar />}
-          
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/dash" element={
-              <RequireAuth>
-                {/* Passing logindata as a prop to Dashboard */}
-                <Dashboard logindata1={logindata} />
-              </RequireAuth>
-            } />
-            <Route path="/channel" element={
-              <RequireAuth>
-                <Channel />
-              </RequireAuth>
-            } />
-            <Route path="*" element={<Error />} />
-          </Routes>
+          {logindata &&  <Header OpenSidebar={OpenSidebar}/>}
+          {logindata ? (
+            <div className="grid-container">
+              <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
+              <Routes>
+                <Route path="/dash" element={<RequireAuth><Dashboard logindata1={logindata} /></RequireAuth>} />
+                <Route path="/channel" element={<RequireAuth><Channel /></RequireAuth>} />
+                <Route path="*" element={<Error />} />
+                <Route path="/my-profile/:id" element={<RequireAuth><MyProfile logindata={logindata}/></RequireAuth>} />
+              </Routes>
+            </div>
+          ) : (
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="*" element={<Error />} />
+            </Routes>
+          )}
         </>
       ) : (
         <h1>Loading...</h1>
       )}
-      
     </>
   );
 }
