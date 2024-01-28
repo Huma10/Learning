@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import Sidebar from './Sidebar';
 
 const Dashboard = ({ logindata1 }) => {
-  console.log('child : ', logindata1);
+
   const logindata = useContext(LoginContext);
   return (
     

@@ -8,7 +8,7 @@ const Login = async ({ email, password }) => {
         email,
         password
     }
-    console.log(data);
+  
 
     return axios.post(`${URl}/login`, data)
         .then(response => {
@@ -61,12 +61,28 @@ const findUserById = (id) => {
         })
 }
 
+
+const updateProfile = (id, data) => {
+    return axios.put(`${URl}/user/${id}`, data, {
+        headers: {
+            Authorization: authHeader().Authorization
+        }
+    })
+        .then((res) => {
+            return res.data
+        })
+        .catch((error) => {
+            return error
+        })
+}
+
 const authService = {
     Login,
     logout,
     getCurrentUser,
     register,
-    findUserById
+    findUserById,
+    updateProfile
 
 }
 

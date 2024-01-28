@@ -9,11 +9,11 @@ const LogoutUser = () => {
     const history = useNavigate();
     const logoutUser = async (e) => {
         e.preventDefault();
-        console.log('logout');
+      
         try {
             const data = await authService.logout();
             if (data.status === 200) {
-                console.log(data);
+            
 
                 localStorage.clear();
                 localStorage.removeItem('user');
@@ -22,7 +22,7 @@ const LogoutUser = () => {
 
             }
         } catch (error) {
-            console.log(error);
+            
         }
     }
 

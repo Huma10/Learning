@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import AuthService from "../service/auth.service";
 import { useParams } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import authService from '../service/auth.service';
+
+
 const MyProfile = () => {
 
-    const { id } = useParams();
-
-    const [passShow, setPassShow] = useState(false);
+    const { id } = useParams();    
     const [data, setData] = useState({
         email: "",
         password: "",
@@ -14,7 +17,7 @@ const MyProfile = () => {
     useEffect(() => {
         async function fetchData() {
             const userData = await AuthService.findUserById(id);
-            console.log('data:', userData);
+           
             setData(userData.data.records)
         }
         fetchData();
@@ -22,11 +25,49 @@ const MyProfile = () => {
     }, [id])
 
     const handleChange = (e) => {
-
+        setData({ ...data, [e.target.name]: e.target.value })
+      
     }
 
-    const updateprofile = async () => {
-
+    const updateprofile = async (e) => {
+        e.preventDefault();
+       
+        const { email, userName } = data;
+        if (email === "") {
+            toast.error("email is required!", {
+                position: toast.POSITION.TOP_CENTER,
+                className: "toast-message"
+            });
+        } else if (!email.includes("@")) {
+            toast.warning("includes @ in your email!", {
+                position: toast.POSITION.TOP_CENTER,
+                className: "toast-message"
+            });
+        } else if (userName === "") {
+            toast.error("UserName is required!", {
+                position: toast.POSITION.TOP_CENTER,
+                className: "toast-message"
+            });
+        } else {
+           
+            const userData = {
+                email: data.email,
+                userName: data.userName
+            }
+            const res = await authService.updateProfile(id, userData);
+         
+            if (res.message === 'User profile updated successfully') {
+                toast.success("User profile updated successfully", {
+                    position: toast.POSITION.TOP_CENTER,
+                    className: "toast-message"
+                 } );
+                setData({
+                    email: userData.email,
+                    userName: userData.userName
+                })
+            }
+            
+        }
     }
 
     return (
@@ -76,7 +117,7 @@ const MyProfile = () => {
 
                 </div>
             </div>
-
+            <ToastContainer/>
         </main>
 
     )

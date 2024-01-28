@@ -14,12 +14,12 @@ const Register = () => {
 
     function handleChange(e) {
         setData({ ...data, [e.target.name]: e.target.value })
-        console.log(data);
+       
     }
 
     const register = async (e) => {
         e.preventDefault();
-        console.log(data);
+    
         const { email, password, userName } = data;
         if (email === "") {
             toast.error("email is required!", {
@@ -49,7 +49,7 @@ const Register = () => {
         } else {
 
             const res = await authService.register(data);
-            console.log(res);
+      
             if (res.message === 'User created successfully') {
                 toast.success("Registered Successfully", {
                     position: toast.POSITION.TOP_CENTER,

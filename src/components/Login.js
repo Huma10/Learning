@@ -17,7 +17,6 @@ const Login = () => {
     const history = useNavigate();
 
     const setVal = (e) => {
-        // console.log(e.target.value);
         const { name, value } = e.target;
 
         setInpval(() => {
@@ -56,7 +55,6 @@ const Login = () => {
             });
         } else {
             const res = await authService.Login(inpval);
-            console.log(res);
             if (res.status === 200) {
                 setLoginData(res.records);
                 // Store res data into localStorgae
