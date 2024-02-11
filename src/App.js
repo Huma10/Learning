@@ -10,6 +10,7 @@ import './App.css';
 import Channel from "./components/channels/channel";
 import Sidebar from "./components/Sidebar";
 import MyProfile from "./components/MyProfile";
+import AddChannel from "./components/channels/addchannel";
 function App() {
   const [data, setData] = useState(false);
    const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
@@ -44,6 +45,7 @@ function App() {
               <Routes>
                 <Route path="/dash" element={<RequireAuth><Dashboard logindata1={logindata} /></RequireAuth>} />
                 <Route path="/channel" element={<RequireAuth><Channel /></RequireAuth>} />
+                <Route path="/channel-add" element={<RequireAuth><AddChannel /></RequireAuth>} />
                 <Route path="*" element={<Error />} />
                 <Route path="/my-profile/:id" element={<RequireAuth><MyProfile logindata={logindata}/></RequireAuth>} />
               </Routes>
